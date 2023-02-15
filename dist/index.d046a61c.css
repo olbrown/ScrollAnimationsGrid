@@ -1,6 +1,4 @@
-*,
-*::after,
-*::before {
+*, :after, :before {
   box-sizing: border-box;
 }
 
@@ -9,7 +7,6 @@
 }
 
 body {
-  margin: 0;
   --color-text: #111;
   --color-bg: #e4e0d8;
   --color-link: #b41717;
@@ -18,52 +15,51 @@ body {
   --color-text-alt: #111;
   color: var(--color-text);
   background-color: var(--color-bg);
-  font-family: roc-grotesk, sans-serif;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: roc-grotesk, sans-serif;
   overflow-x: hidden;
 }
 
-/* Page Loader */
-.js .loading::before,
-.js .loading::after {
+.js .loading:before, .js .loading:after {
   content: "";
-  position: fixed;
   z-index: 1000;
+  position: fixed;
 }
 
-.js .loading::before {
-  top: 0;
-  left: 0;
+.js .loading:before {
   width: 100%;
   height: 100%;
   background: var(--color-bg);
+  top: 0;
+  left: 0;
 }
 
-.js .loading::after {
-  top: 50%;
-  left: 50%;
+.js .loading:after {
   width: 60px;
   height: 60px;
-  margin: -30px 0 0 -30px;
-  border-radius: 50%;
-  opacity: 0.4;
+  opacity: .4;
   background: var(--color-link);
-  animation: loaderAnim 0.7s linear infinite alternate forwards;
+  border-radius: 50%;
+  margin: -30px 0 0 -30px;
+  animation: .7s linear infinite alternate forwards loaderAnim;
+  top: 50%;
+  left: 50%;
 }
 
 @keyframes loaderAnim {
   to {
     opacity: 1;
-    transform: scale3d(0.5, 0.5, 1);
+    transform: scale3d(.5, .5, 1);
   }
 }
 
 a {
-  text-decoration: none;
   color: var(--color-link);
   outline: none;
+  text-decoration: none;
 }
 
 a:hover {
@@ -71,34 +67,26 @@ a:hover {
   outline: none;
 }
 
-/* Better focus styles from https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible */
 a:focus {
-  /* Provide a fallback style for browsers
-	 that don't support :focus-visible */
+  background: #d3d3d3;
   outline: none;
-  background: lightgrey;
 }
 
 a:focus:not(:focus-visible) {
-  /* Remove the focus indicator on mouse-focus for browsers
-	 that do support :focus-visible */
-  background: transparent;
+  background: none;
 }
 
 a:focus-visible {
-  /* Draw a very noticeable focus style for
-	 keyboard-focus on browsers that do support
-	 :focus-visible */
+  background: none;
   outline: 2px solid red;
-  background: transparent;
 }
 
 .unbutton {
+  font: inherit;
   background: none;
   border: 0;
-  padding: 0;
   margin: 0;
-  font: inherit;
+  padding: 0;
 }
 
 .unbutton:focus {
@@ -106,23 +94,25 @@ a:focus-visible {
 }
 
 .frame {
-  position: fixed;
   z-index: 1000;
-  top: 0;
-  left: 0;
-  display: grid;
-  align-content: space-between;
   width: 100%;
   max-width: none;
-  padding: 1rem;
   pointer-events: none;
-  grid-template-columns: 1fr;
   grid-template-rows: repeat(4, auto);
-  grid-template-areas: "title" "prev" "sponsor" "demos";
+  grid-template-columns: 1fr;
+  grid-template-areas: "title"
+                       "prev"
+                       "sponsor"
+                       "demos";
+  align-content: space-between;
+  padding: 1rem;
+  display: grid;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
-.frame a,
-.frame button {
+.frame a, .frame button {
   pointer-events: auto;
 }
 
@@ -130,20 +120,20 @@ a:focus-visible {
   grid-area: title;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: .5rem;
   display: flex;
-  margin-bottom: 0.5rem;
 }
 
 .frame__title-main {
-  font-size: 1rem;
   margin: 0;
+  font-size: 1rem;
   font-weight: 400;
 }
 
 .frame__title-back {
-  position: relative;
-  display: flex;
   align-items: flex-end;
+  display: flex;
+  position: relative;
 }
 
 .frame__title-back span {
@@ -154,8 +144,7 @@ a:focus-visible {
   fill: var(--color-link);
 }
 
-.frame__title-back:hover svg,
-.frame__title-back:focus svg {
+.frame__title-back:hover svg, .frame__title-back:focus svg {
   fill: var(--color-link-hover);
 }
 
@@ -168,8 +157,7 @@ a:focus-visible {
   position: relative;
 }
 
-.frame__demo--current,
-.frame__demo--current:hover {
+.frame__demo--current, .frame__demo--current:hover {
   color: var(--color-text);
 }
 
@@ -183,78 +171,74 @@ a:focus-visible {
 }
 
 .grid {
-  position: relative;
   width: 100%;
-  display: grid;
   grid-template-columns: repeat(4, 1fr);
+  display: grid;
+  position: relative;
 }
 
 .grid__item {
-  position: relative;
   will-change: transform;
   grid-column: var(--c);
   grid-row: var(--r);
+  position: relative;
 }
 
 .grid__item-img {
-  position: relative;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
-  background-size: cover;
-  background-position: 50% 50%;
   will-change: transform, opacity, filter;
+  background-position: 50%;
+  background-size: cover;
+  position: relative;
 }
 
-/* .demo-1 .grid__item-img {
-  filter: contrast(70%);
-} */
-
 .cover {
-  position: fixed;
   width: 100%;
   height: 100vh;
+  pointer-events: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
   top: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
 }
 
 .cover__title {
+  text-align: center;
+  margin: 0;
   font-family: novecento-sans-wide, sans-serif;
   font-size: 8vw;
   font-weight: 600;
-  margin: 0;
-  text-align: center;
 }
 
 .cover__title sup {
+  vertical-align: 75%;
   font-size: 4vw;
   font-weight: bold;
-  vertical-align: 75%;
 }
 
 .cover__subtitle {
+  margin: 0;
   font-size: 1.5rem;
   font-weight: 400;
-  margin: 0;
 }
 
 .footer {
   color: var(--color-text-alt);
   background: var(--color-bg-alt);
   height: 100vh;
-  font-size: 5vh;
-  line-height: 1.2;
-  position: relative;
   z-index: 200;
   text-transform: none;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-size: 5vh;
+  line-height: 1.2;
+  display: flex;
+  position: relative;
 }
 
 .footer p {
@@ -264,25 +248,31 @@ a:focus-visible {
 @media screen and (min-width: 53em) {
   .frame {
     height: 100vh;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: "prev sponsor" "... ..." "title demos";
+    grid-template: "prev sponsor"
+                   ". ." 1fr
+                   "title demos"
+                   / auto 1fr;
   }
+
   .frame__demos {
+    white-space: nowrap;
     justify-self: end;
     margin: 0 1rem;
-    white-space: nowrap;
   }
-  .frame__demo--current::after {
+
+  .frame__demo--current:after {
     content: "";
-    position: absolute;
-    top: 100%;
     height: 120%;
     width: 1px;
-    left: 50%;
     background: currentColor;
+    position: absolute;
+    top: 100%;
+    left: 50%;
   }
+
   .frame__demos-title {
     display: inline;
   }
 }
+
+/*# sourceMappingURL=index.d046a61c.css.map */
